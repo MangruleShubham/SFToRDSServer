@@ -50,11 +50,23 @@ client.connect((err)=>{
 app.post('/:Name/:Id',(req,resp)=>{
     const name=req.params.Name;
     const Id=req.params.Id;
-    return resp.send({body:req.body,message:"Salesforce integration with nodejs"});
+    client.query(`Insert into Account (Name,Id) Values(${name},${Id})`,(err,res)=>{
+       if(err)
+       console.log(err);
+       else
+       console.log("Added Inserted Successfully");
+    });
+    return resp.send({body:req.body,message:"Data Added"});
 })
 app.post('/create/Account/Record',(req,resp)=>{
  const name=req.body.name;
  const Id=req.body.Id;
+ conn.sobject("Account").create({Name:name,Id:Id},(err,res)=>{
+    if(err||!res.success)
+    console.log(err);
+    else
+    console.log("Data Added To Salesforce Account");
+ })
 });
 app.listen(PORT,(err)=>{
     if(err)console.log(err);

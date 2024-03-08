@@ -30,7 +30,7 @@ conn.login(SF_USERNAME,SF_PASSWORD+SF_TOKEN,(err,userInfo)=>{
 
 // sslServer.listen(3001,()=>console.log('Secure server on port 3001'));
 app.post('/',(req,resp)=>{
-    console.log("Hello"+req);
+    console.log("Hello"+JSON.parse(JSON.stringify(req)));
     console.log("Hello"+req.body.Id);
     return resp.send({body:req.body,message:"Salesforce integration with nodejs"});
 })

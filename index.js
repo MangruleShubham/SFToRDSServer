@@ -4,10 +4,13 @@ const path=require('path');
 const fs=require('fs');
 const cors =require('cors')
 const jsforce=require('jsforce');
+const bodyParser = require('body-parser'); 
 require('dotenv').config();
+
 
 const app = express()
 app.use(cors());
+app.use(bodyParser.json());
 const PORT=3001
 
 const {SF_LOGIN_URL,SF_USERNAME,SF_PASSWORD,SF_TOKEN}=process.env
@@ -26,6 +29,7 @@ conn.login(SF_USERNAME,SF_PASSWORD+SF_TOKEN,(err,userInfo)=>{
 
 // sslServer.listen(3001,()=>console.log('Secure server on port 3001'));
 app.post('/',(req,resp)=>{
+    console.log(req.body);
     return resp.send({message:"Salesforce integration with nodejs"});
 })
 app.listen(PORT,(err)=>{

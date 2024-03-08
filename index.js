@@ -19,12 +19,17 @@ conn.login(SF_USERNAME,SF_PASSWORD+SF_TOKEN,(err,userInfo)=>{
     console.log("userInfo"+userInfo.id);
 })
 
-const  sslServer=https.createServer({
-    key:fs.readFileSync(path.join(__dirname,'cert','key.pem')),
-    cert:fs.readFileSync(path.join(__dirname,'cert','cert.pem'))
-},app)
+// const  sslServer=https.createServer({
+//     key:fs.readFileSync(path.join(__dirname,'cert','key.pem')),
+//     cert:fs.readFileSync(path.join(__dirname,'cert','cert.pem'))
+// },app)
 
-sslServer.listen(3001,()=>console.log('Secure server on port 3001'));
-app.post('/',(req,resp)=>{
-    resp.send({message:"Salesforce integration with nodejs"});
+// sslServer.listen(3001,()=>console.log('Secure server on port 3001'));
+// app.post('/',(req,resp)=>{
+//     resp.send({message:"Salesforce integration with nodejs"});
+// })
+app.listen(PORT,(err)=>{
+    if(err)console.log(err);
+    else
+    console.log('Sever is running');
 })

@@ -31,7 +31,8 @@ const client=new Client({
     host:PG_HOST,
     database:PG_DATABASE,
     password:PG_PASSWORD,
-    port:PG_PORT
+    port:PG_PORT,
+    ssl: { rejectUnauthorized: false }
 })
 
 client.connect((err)=>{

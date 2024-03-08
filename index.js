@@ -11,6 +11,7 @@ require('dotenv').config();
 const app = express()
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json())
 const PORT=3001
 
 const {SF_LOGIN_URL,SF_USERNAME,SF_PASSWORD,SF_TOKEN}=process.env

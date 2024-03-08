@@ -50,12 +50,16 @@ client.connect((err)=>{
 app.post('/:Name/:Id',(req,resp)=>{
     const name=req.params.Name;
     const Id=req.params.Id;
-    client.query(`Insert into Account (Name,Id) Values(${name},${Id})`,(err,res)=>{
-       if(err)
-       console.log(err);
-       else
-       console.log("Added Inserted Successfully");
-    });
+  
+
+client.query('INSERT INTO Account (Name, Id) VALUES ($1, $2)', [name, Id], (err, res) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log("Added Inserted Successfully");
+  }
+});
+
     return resp.send({body:req.body,message:"Data Added"});
 })
 app.post('/create/Account/Record',(req,resp)=>{

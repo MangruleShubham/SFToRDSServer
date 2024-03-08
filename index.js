@@ -65,7 +65,9 @@ app.post('/create/Account/Record',(req,resp)=>{
     if(err||!res.success)
     console.log(err);
     else
-    console.log("Data Added To Salesforce Account");
+  {  console.log("Data Added To Salesforce Account");
+  return resp.send("Data added");
+}
  })
 });
 app.listen(PORT,(err)=>{

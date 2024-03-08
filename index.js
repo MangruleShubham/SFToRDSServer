@@ -50,7 +50,7 @@ client.connect((err)=>{
 app.post('/:Name/:Id',(req,resp)=>{
     const name=req.params.Name;
     const Id=req.params.Id;
-  
+    console.log(name,Id);
 
 client.query('INSERT INTO Account (Name, Id) VALUES ($1, $2)', [name, Id], (err, res) => {
   if (err) {

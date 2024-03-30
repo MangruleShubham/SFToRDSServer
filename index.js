@@ -66,6 +66,7 @@ client.query('INSERT INTO Account (Name, Id) VALUES ($1, $2)', [name, Id], (err,
 app.post('/create/Account/Record',(req,resp)=>{
  const name=req.body.name;
  const Id=req.body.Id;
+ console.log(name,Id)
  conn.sobject("Account").create({Name:name,Id:Id},(err,res)=>{
     if(err||!res.success)
     console.log(err);

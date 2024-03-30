@@ -74,7 +74,6 @@ app.post('/create/Account/Record',(req,resp)=>{
   return resp.send("Data added");
 }
  })
-resp.send("sending resposnce as sample")
 });
 app.listen(PORT,(err)=>{
     if(err)console.log(err);

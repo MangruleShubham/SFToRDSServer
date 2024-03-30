@@ -67,14 +67,14 @@ app.post('/create/Account/Record',(req,resp)=>{
  const name=req.body.name;
  const Id=req.body.Id;
  console.log(req,req.body)
-//  conn.sobject("Account").create({Name:name,Id:Id},(err,res)=>{
-//     if(err||!res.success)
-//     console.log(err);
-//     else
-//   {  console.log("Data Added To Salesforce Account");
-//   return resp.send("Data added");
-// }
-//  })
+ conn.sobject("Account").create({Name:name,Id:Id},(err,res)=>{
+    if(err||!res.success)
+    console.log(err);
+    else
+  {  console.log("Data Added To Salesforce Account");
+  return resp.send("Data added");
+}
+ })
 resp.send("sending resposnce as sample")
 });
 app.listen(PORT,(err)=>{

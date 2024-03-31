@@ -42,35 +42,35 @@ client.connect((err)=>{
     console.log("Connected To DB");
 })
 
-// const  sslServer=https.createServer({
-//     key:fs.readFileSync(path.join(__dirname,'cert','key.pem')),
-//     cert:fs.readFileSync(path.join(__dirname,'cert','cert.pem'))
-// },app)
+const  sslServer=https.createServer({
+    key:fs.readFileSync(path.join(__dirname,'cert','key.pem')),
+    cert:fs.readFileSync(path.join(__dirname,'cert','cert.pem'))
+},app)
 
-// sslServer.listen(3001,()=>console.log('Secure server on port 3001'));
-// app.post('/:Name/:Id',(req,resp)=>{
-//     const name=req.params.Name;
-//     const Id=req.params.Id;
-//     console.log(name,Id);
+sslServer.listen(3001,()=>console.log('Secure server on port 3001'));
+app.post('/:Name/:Id',(req,resp)=>{
+    const name=req.params.Name;
+    const Id=req.params.Id;
+    console.log(name,Id);
 
-//     client.query('SELECT EXISTS (SELECT 1 FROM Account WHERE Name = $1)', [name], (err, res) => {
-//       if (err) {
-//         console.error(err);
-//       } else if (res.rows[0].exists === true) {
-//         console.log("Account with the same name already exists. Skipping insertion.");
-//       } else {
-//         client.query('INSERT INTO Account (Name, Id) VALUES ($1, $2)', [name, Id], (err, res) => {
-//           if (err) {
-//             console.error(err);
-//           } else {
-//             console.log("Account added successfully!");
-//           }
-//         });
-//       }
-//     });
+    client.query('SELECT EXISTS (SELECT 1 FROM Account WHERE Name = $1)', [name], (err, res) => {
+      if (err) {
+        console.error(err);
+      } else if (res.rows[0].exists === true) {
+        console.log("Account with the same name already exists. Skipping insertion.");
+      } else {
+        client.query('INSERT INTO Account (name, id) VALUES ($1, $2)', [name, Id], (err, res) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log("Account added successfully!");
+          }
+        });
+      }
+    });
 
-//     return resp.send({body:req.body,message:"Data Added"});
-// })
+    return resp.send({body:req.body,message:"Data Added"});
+})
 app.post('/create/Account/Record',(req,resp)=>{
  const name=req.body.name;
  const Id=req.body.Id;

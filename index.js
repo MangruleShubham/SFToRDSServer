@@ -54,7 +54,7 @@ app.post('/:Name/:Id',(req,resp)=>{
     // console.log(name,Id);
    
  // Check if an account with the same name already exists
-client.query('SELECT COUNT(*) FROM Account WHERE Name = $1', [name], (err, res) => {
+client.query('SELECT COUNT(*) FROM Account WHERE name = $1', [name], (err, res) => {
     if (err) {
       console.error(err);
     } else {

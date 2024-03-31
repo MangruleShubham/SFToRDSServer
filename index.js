@@ -53,12 +53,19 @@ app.post('/:Name/:Id',(req,resp)=>{
     const Id=req.params.Id;
     // console.log(name,Id);
    
-    client.query('SELECT EXISTS (SELECT 1 FROM Account WHERE Name = $1)', [name], (err, res) => {
-      if (err) {
-        console.error(err);
-      } else if (res.rows[0].exists === true) {
+ // Check if an account with the same name already exists
+client.query('SELECT COUNT(*) FROM Account WHERE Name = $1', [name], (err, res) => {
+    if (err) {
+      console.error(err);
+    } else {
+      // Extract the count from the query result
+      const count = res.rows[0].count;
+      
+      // If count is greater than 0, account with the same name exists
+      if (count > 0) {
         console.log("Account with the same name already exists. Skipping insertion.");
       } else {
+        // Insert the new account into the database
         client.query('INSERT INTO Account (name, id) VALUES ($1, $2)', [name, Id], (err, res) => {
           if (err) {
             console.error(err);
@@ -67,21 +74,37 @@ app.post('/:Name/:Id',(req,resp)=>{
           }
         });
       }
-    });
+    }
+  });
+  
 
     return resp.send({body:req.body,message:"Data Added"});
 })
 app.post('/create/Account/Record',(req,resp)=>{
  const name=req.body.name;
  const Id=req.body.Id;
- conn.sobject("Account").create({Name:name,Id:Id},(err,res)=>{
-    if(err||!res.success)
-    console.log(err);
-    else
-  {  console.log("Data Added To Salesforce Account");
-  return resp.send("Data added");
-}
- })
+ conn.sobject("Account").find({ Name: name }, (err, records) => {
+    if (err) {
+      console.error(err);
+      
+    }
+  
+    if (records && records.length > 0) {
+      console.log("An account with the same name already exists. Skipping insertion.");
+      // Handle the case where the account already exists
+    } else {
+      // Create a new account record since no existing record was found
+      conn.sobject("Account").create({ Name: name, Id: Id }, (err, res) => {
+        if (err || !res.success) {
+          console.error(err);
+        } else {
+          console.log("Data added to Salesforce Account");
+          // Handle successful insertion
+        }
+      });
+    }
+  });
+  resp.send("Operation done");
 });
 app.listen(PORT,(err)=>{
     if(err)console.log(err);

@@ -51,8 +51,8 @@ client.connect((err)=>{
 app.post('/:Name/:Id',(req,resp)=>{
     const name=req.params.Name;
     const Id=req.params.Id;
-    console.log(name,Id);
-
+    // console.log(name,Id);
+   
     client.query('SELECT EXISTS (SELECT 1 FROM Account WHERE Name = $1)', [name], (err, res) => {
       if (err) {
         console.error(err);

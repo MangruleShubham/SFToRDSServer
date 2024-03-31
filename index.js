@@ -42,12 +42,12 @@ client.connect((err)=>{
     console.log("Connected To DB");
 })
 
-const  sslServer=https.createServer({
-    key:fs.readFileSync(path.join(__dirname,'cert','key.pem')),
-    cert:fs.readFileSync(path.join(__dirname,'cert','cert.pem'))
-},app)
+// const  sslServer=https.createServer({
+//     key:fs.readFileSync(path.join(__dirname,'cert','key.pem')),
+//     cert:fs.readFileSync(path.join(__dirname,'cert','cert.pem'))
+// },app)
 
-sslServer.listen(3001,()=>console.log('Secure server on port 3001'));
+// sslServer.listen(3001,()=>console.log('Secure server on port 3001'));
 app.post('/:Name/:Id',(req,resp)=>{
     const name=req.params.Name;
     const Id=req.params.Id;

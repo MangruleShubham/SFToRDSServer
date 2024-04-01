@@ -48,7 +48,7 @@ client.connect((err)=>{
 // },app)
 
 // sslServer.listen(3001,()=>console.log('Secure server on port 3001'));
-app.post('/:Id/:Name',(req,resp)=>{
+app.post('/:Name/:Id',(req,resp)=>{
     const name=req.params.Name;
     const Id=req.params.Id;
     // console.log(name,Id);
